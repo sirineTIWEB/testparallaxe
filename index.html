@@ -20,6 +20,13 @@
             background-color: #FFA6C9; /* Fond rose révélé quand éléments partent */
         }
 
+        /* Sur mobile, le body doit permettre le débordement pendant les animations */
+        @media (max-width: 767px) {
+            body {
+                overflow-x: visible;
+            }
+        }
+
         .parallaxe {
             position: relative;
             width: 100vw;
@@ -125,21 +132,21 @@
         const fondScale = isMobile ? 1.1 : 1.2;
 
         // Scroll duration
-        const scrollDuration = isMobile ? "+=300%" : (isTablet ? "+=400%" : "+=500%");
+        const scrollDuration = isMobile ? "+=450%" : (isTablet ? "+=400%" : "+=500%"); // Plus de scroll sur mobile
 
         // Animation durations
         const peopleDuration = isMobile ? 10 : 12;
         const texteDuration = isMobile ? 6 : 8;
         const fondDuration = isMobile ? 8 : 10;
-        const fondExitDuration = isMobile ? 6 : 8;
-        const peopleExitDuration = isMobile ? 5 : 6;
+        const fondExitDuration = isMobile ? 7 : 8; // Plus long sur mobile
+        const peopleExitDuration = isMobile ? 6 : 6; // Plus long sur mobile
 
         // Mouvement horizontal initial (Phase 1)
         const initialXMove = isMobile ? "0%" : "-10%"; // Mobile: centré, Desktop: légèrement à gauche
 
-        // Exit distances
-        const fondExitX = isMobile ? "-130%" : "-150%";
-        const peopleExitX = isMobile ? "-160%" : "-180%"; // Mobile: plus loin pour bien disparaître
+        // Exit distances - beaucoup plus loin sur mobile
+        const fondExitX = isMobile ? "-160%" : "-150%";
+        const peopleExitX = isMobile ? "-200%" : "-180%"; // Beaucoup plus loin sur mobile pour disparaître complètement
 
         // Timeline: ZOOM PARALLAXE + SCROLL HORIZONTAL
         const tl = gsap.timeline({
