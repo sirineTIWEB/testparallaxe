@@ -124,6 +124,7 @@
         // DÉTECTION RESPONSIVE
         const isMobile = window.innerWidth < 768;
         const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+        const isTabletPortrait = isTablet && window.innerHeight > window.innerWidth; // iPad portrait
 
         // VALEURS ADAPTATIVES SELON LA TAILLE D'ÉCRAN
         // Scale values
@@ -131,22 +132,22 @@
         const texteScale = isMobile ? 1.3 : (isTablet ? 1.5 : 1.65);
         const fondScale = isMobile ? 1.1 : 1.2;
 
-        // Scroll duration
-        const scrollDuration = isMobile ? "+=450%" : (isTablet ? "+=400%" : "+=500%"); // Plus de scroll sur mobile
+        // Scroll duration - iPad portrait a besoin de plus de scroll
+        const scrollDuration = isMobile ? "+=450%" : (isTabletPortrait ? "+=550%" : (isTablet ? "+=400%" : "+=500%"));
 
         // Animation durations
         const peopleDuration = isMobile ? 10 : 12;
         const texteDuration = isMobile ? 6 : 8;
         const fondDuration = isMobile ? 8 : 10;
-        const fondExitDuration = isMobile ? 7 : 8; // Plus long sur mobile
-        const peopleExitDuration = isMobile ? 6 : 6; // Plus long sur mobile
+        const fondExitDuration = isMobile ? 7 : (isTabletPortrait ? 9 : 8); // Plus long sur iPad portrait
+        const peopleExitDuration = isMobile ? 6 : (isTabletPortrait ? 7 : 6); // Plus long sur iPad portrait
 
         // Mouvement horizontal initial (Phase 1)
         const initialXMove = isMobile ? "0%" : "-10%"; // Mobile: centré, Desktop: légèrement à gauche
 
-        // Exit distances - beaucoup plus loin sur mobile
-        const fondExitX = isMobile ? "-160%" : "-150%";
-        const peopleExitX = isMobile ? "-200%" : "-180%"; // Beaucoup plus loin sur mobile pour disparaître complètement
+        // Exit distances - iPad portrait a besoin de distances plus grandes
+        const fondExitX = isMobile ? "-160%" : (isTabletPortrait ? "-170%" : "-150%");
+        const peopleExitX = isMobile ? "-200%" : (isTabletPortrait ? "-220%" : "-180%"); // Très loin sur iPad portrait
 
         // Timeline: ZOOM PARALLAXE + SCROLL HORIZONTAL
         const tl = gsap.timeline({
